@@ -1,0 +1,105 @@
+  {% extends 'master.html' %}
+  {% load static %}
+
+  {% block content %}
+   <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/assets/img/aboutus-temp.jpg');margin-top:-1px;">
+      <div class="container position-relative d-flex flex-column align-items-center">
+
+          <h2>About Us</h2>
+          <ol>
+          <li><a href="/">Home</a></li>
+          <li>About</li>
+          </ol>
+
+  </div>
+  </div><!-- End Breadcrumbs -->
+
+      <!-- ======= About Us Section ======= -->
+      <section id="about-us" class="about-us">
+        <div class="container" data-aos="fade-up">
+  
+          <div class="row content">
+            <div class="col-lg-6" data-aos="fade-right">
+              <h2>{{about.big_header}}</h2>
+              <h3>{{about.sub_header}}</h3>
+              <p>{{about.text_before_bullets}}</p>
+              <p class="mt-5">~ Ap. Rogers Serugo</p>
+            </div>
+            <div class="col-lg-6 pt-4 pt-lg-0 text-center" data-aos="fade-left">
+              <img src="{% static 'assets/img/team/pastors/Ap.Rogers.png' %}" style="max-height: 400px;"/>
+            </div>
+          </div>
+  
+        </div>
+      </section><!-- End About Us Section -->
+
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+      <div class="container" data-aos="fade-up">
+<!-- 
+        <div class="section-title">
+          <h2>Our Inspiration</h2>
+        </div> -->
+
+        <div class="row">
+          <div class="col-xl-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"><i class="bi bi-eyeglasses"></i></div>
+              <h4><a href="">Our Vision</a></h4>
+              <p>{{about.vision}}</p>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon-box">
+              <div class="icon"><i class="bi bi-bullseye"></i></div>
+              <h4><a href="">Our Mission</a></h4>
+              <p>{{about.mission}}</p>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-box">
+              <div class="icon"><i class="bi bi-balloon"></i></div>
+              <h4><a href="">Core Values</a></h4>
+              <p>{{about.core_values}}</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+  
+    <!-- ======= Speakers Section ======= -->
+    <section id="speakers">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Our Teams</h2>
+        </div>
+
+        <div class="row">
+          {% for team in teams %}
+
+          <div class="col-lg-4 col-md-6">
+            <div class="speaker" data-aos="fade-up" data-aos-delay="100">
+              <img src="{% if team.team_image %} {{team.team_image.url}} {% else %} {% static 'assets/img/portfolio/portfolio-1.jpg' %} {% endif %}" alt="team" class="img-fluid">
+              <div class="details">
+                <h3><a href="speaker-details.html">{{team.team_name}}</a></h3>
+                <p>{{team.team_slogan}}</p>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </section><!-- End Speakers Section -->
+{% endblock %}

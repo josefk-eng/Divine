@@ -1,0 +1,612 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block content %}
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" >
+    <div id="heroCarousel" data-bs-interval="5000" class="carousel carousel-fade" data-bs-ride="carousel">
+
+      {% for slide in slides %}
+      <div class="carousel-item  active" style="background-image: url({{slide.back_image.url}});">
+        <div class="carousel-container">
+          <div class="carousel-content animate__animated animate__fadeInUp text-center">
+            <h2>{{slide.header}}</h2>
+            <p class="blockquote-footer" style="color: #f6b024;" >{{slide.caption}}</p>
+<!--            <p>{{slide.big_caption}}</p>-->
+<!--            <div class="text-center"><a href="#progams" class="btn-get-started">{{slide.btn_text}}</a></div>-->
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+
+      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bx bx-chevron-left" aria-hidden="true"></span>
+      </a>
+
+      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon bx bx-chevron-right" aria-hidden="true"></span>
+      </a>
+
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= Icon Boxes Section ======= -->
+    <section id="icon-boxes" class="icon-boxes">
+      <div class="container">
+
+        <div class="row">
+          {% for p in notes%}
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up">
+            <div class="icon-box">
+              <!-- <div class="icon"><i class="bx bxl-dribbble"></i></div> -->
+              <img src="{{p.full_image.url}}" class="img-fluid" alt="">
+              <div class="text-center p-5">
+                <h4 class="title pastor"><a href="">{{p.header}}</a></h4>
+                <p class="description ">{{p.note}}</p>
+              </div>
+            </div>
+          </div>
+          {%endfor%}
+        </div>
+
+      </div>
+    </section><!-- End Icon Boxes Section -->
+
+        <!-- ======= Schedule Section ======= -->
+        <section id="schedule" class="section-with-bg">
+          <div class="container" data-aos="fade-up">
+            <div class="section-title">
+              <h2>Our Weekly Schedule</h2>
+            </div>
+    
+            <ul class="nav nav-tabs" role="tablist" data-aos="fade-up" data-aos-delay="100">
+              {% for day in days %}
+                <li class="nav-item">
+                  <a class="nav-link {% if forloop.counter0 == 1 %}active{%endif%}" href="#day-{{forloop.counter0}}" role="tab" data-bs-toggle="tab">{{day}}</a>
+                </li>
+              {% endfor %}
+
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" href="#day-2" role="tab" data-bs-toggle="tab">Monday</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" href="#day-3" role="tab" data-bs-toggle="tab">Tuesday</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" href="#day-4" role="tab" data-bs-toggle="tab">Wednesday</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" href="#day-5" role="tab" data-bs-toggle="tab">Thursday</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" href="#day-6" role="tab" data-bs-toggle="tab">Friday</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" href="#day-7" role="tab" data-bs-toggle="tab">Saturday</a>-->
+<!--              </li>-->
+            </ul>
+    
+            <h3 class="sub-heading"></h3>
+    
+            <div class="tab-content row justify-content-center" data-aos="fade-up" data-aos-delay="200">
+    
+              {% for panel in days %}
+                <!-- Schdule Day 1 -->
+                <div role="tabpanel" class="col-lg-9 tab-pane fade show {% if forloop.counter0 == 1 %}active{%endif%}" id="day-{{forloop.counter0}}">
+                  {% for e in events %}
+                    {% if panel == e.start_time|date:"l" %}
+                        <div class="row schedule-item">
+                          <div class="col-md-2"><time>{{e.start_time|date:"H:i"}} - {{e.end_time|date:"H:i"}}</time></div>
+                          <div class="col-md-10">
+                            <div class="speaker">
+                              <img src="{{e.event_image.url}}" alt="{{e.contact_person}}">
+                            </div>
+                            <h4>{{e.title}}</h4>
+                            <p>{{e.description}}</p>
+                          </div>
+                        </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                <!-- End Schdule Day 1 -->
+              {% endfor %}
+    
+              <!-- Schdule Day 2 -->
+              <!-- <div role="tabpanel" class="col-lg-9  tab-pane fade" id="day-2">
+    
+                <div class="row schedule-item">
+                  <div class="col-md-2"><time>10:00 AM</time></div>
+                  <div class="col-md-10">
+                    <div class="speaker">
+                      <img src="assets/img/speakers/1.jpg" alt="Brenden Legros">
+                    </div>
+                    <h4>Libero corrupti explicabo itaque. <span>Brenden Legros</span></h4>
+                    <p>Facere provident incidunt quos voluptas.</p>
+                  </div>
+                </div>
+    
+                <div class="row schedule-item">
+                  <div class="col-md-2"><time>11:00 AM</time></div>
+                  <div class="col-md-10">
+                    <div class="speaker">
+                      <img src="assets/img/speakers/2.jpg" alt="Hubert Hirthe">
+                    </div>
+                    <h4>Et voluptatem iusto dicta nobis. <span>Hubert Hirthe</span></h4>
+                    <p>Maiores dignissimos neque qui cum accusantium ut sit sint inventore.</p>
+                  </div>
+                </div>
+    
+                <div class="row schedule-item">
+                  <div class="col-md-2"><time>12:00 AM</time></div>
+                  <div class="col-md-10">
+                    <div class="speaker">
+                      <img src="assets/img/speakers/3.jpg" alt="Cole Emmerich">
+                    </div>
+                    <h4>Explicabo et rerum quis et ut ea. <span>Cole Emmerich</span></h4>
+                    <p>Veniam accusantium laborum nihil eos eaque accusantium aspernatur.</p>
+                  </div>
+                </div>
+    
+                <div class="row schedule-item">
+                  <div class="col-md-2"><time>02:00 PM</time></div>
+                  <div class="col-md-10">
+                    <div class="speaker">
+                      <img src="assets/img/speakers/4.jpg" alt="Jack Christiansen">
+                    </div>
+                    <h4>Qui non qui vel amet culpa sequi. <span>Jack Christiansen</span></h4>
+                    <p>Nam ex distinctio voluptatem doloremque suscipit iusto.</p>
+                  </div>
+                </div>
+    
+                <div class="row schedule-item">
+                  <div class="col-md-2"><time>03:00 PM</time></div>
+                  <div class="col-md-10">
+                    <div class="speaker">
+                      <img src="assets/img/speakers/5.jpg" alt="Alejandrin Littel">
+                    </div>
+                    <h4>Quos ratione neque expedita asperiores. <span>Alejandrin Littel</span></h4>
+                    <p>Eligendi quo eveniet est nobis et ad temporibus odio quo.</p>
+                  </div>
+                </div>
+    
+                <div class="row schedule-item">
+                  <div class="col-md-2"><time>04:00 PM</time></div>
+                  <div class="col-md-10">
+                    <div class="speaker">
+                      <img src="assets/img/speakers/6.jpg" alt="Willow Trantow">
+                    </div>
+                    <h4>Quo qui praesentium nesciunt <span>Willow Trantow</span></h4>
+                    <p>Voluptatem et alias dolorum est aut sit enim neque veritatis.</p>
+                  </div>
+                </div>
+    
+              </div> -->
+              <!-- End Schdule Day 2 -->
+    
+              <!-- Schdule Day 3 -->
+              <!-- <div role="tabpanel" class="col-lg-9  tab-pane fade" id="day-3">
+    
+                <div class="row schedule-item">
+                  <div class="col-md-2"><time>10:00 AM</time></div>
+                  <div class="col-md-10">
+                    <div class="speaker">
+                      <img src="assets/img/speakers/2.jpg" alt="Hubert Hirthe">
+                    </div>
+                    <h4>Et voluptatem iusto dicta nobis. <span>Hubert Hirthe</span></h4>
+                    <p>Maiores dignissimos neque qui cum accusantium ut sit sint inventore.</p>
+                  </div>
+                </div>
+    
+                <div class="row schedule-item">
+                  <div class="col-md-2"><time>11:00 AM</time></div>
+                  <div class="col-md-10">
+                    <div class="speaker">
+                      <img src="assets/img/speakers/3.jpg" alt="Cole Emmerich">
+                    </div>
+                    <h4>Explicabo et rerum quis et ut ea. <span>Cole Emmerich</span></h4>
+                    <p>Veniam accusantium laborum nihil eos eaque accusantium aspernatur.</p>
+                  </div>
+                </div>
+    
+                <div class="row schedule-item">
+                  <div class="col-md-2"><time>12:00 AM</time></div>
+                  <div class="col-md-10">
+                    <div class="speaker">
+                      <img src="assets/img/speakers/1.jpg" alt="Brenden Legros">
+                    </div>
+                    <h4>Libero corrupti explicabo itaque. <span>Brenden Legros</span></h4>
+                    <p>Facere provident incidunt quos voluptas.</p>
+                  </div>
+                </div>
+    
+                <div class="row schedule-item">
+                  <div class="col-md-2"><time>02:00 PM</time></div>
+                  <div class="col-md-10">
+                    <div class="speaker">
+                      <img src="assets/img/speakers/4.jpg" alt="Jack Christiansen">
+                    </div>
+                    <h4>Qui non qui vel amet culpa sequi. <span>Jack Christiansen</span></h4>
+                    <p>Nam ex distinctio voluptatem doloremque suscipit iusto.</p>
+                  </div>
+                </div>
+    
+                <div class="row schedule-item">
+                  <div class="col-md-2"><time>03:00 PM</time></div>
+                  <div class="col-md-10">
+                    <div class="speaker">
+                      <img src="assets/img/speakers/5.jpg" alt="Alejandrin Littel">
+                    </div>
+                    <h4>Quos ratione neque expedita asperiores. <span>Alejandrin Littel</span></h4>
+                    <p>Eligendi quo eveniet est nobis et ad temporibus odio quo.</p>
+                  </div>
+                </div>
+    
+                <div class="row schedule-item">
+                  <div class="col-md-2"><time>04:00 PM</time></div>
+                  <div class="col-md-10">
+                    <div class="speaker">
+                      <img src="assets/img/speakers/6.jpg" alt="Willow Trantow">
+                    </div>
+                    <h4>Quo qui praesentium nesciunt <span>Willow Trantow</span></h4>
+                    <p>Voluptatem et alias dolorum est aut sit enim neque veritatis.</p>
+                  </div>
+                </div>
+    
+              </div> -->
+              <!-- End Schdule Day 2 -->
+    
+            </div>
+    
+          </div>
+    
+        </section><!-- End Schedule Section -->
+
+
+    <!-- ======= ministry Section ======= -->
+    <section id="ministries">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Ministries</h2>
+          <p>And He said to them, “Go into all the world and preach the gospel to every creature <br> Mark 16:15</p>
+        </div>
+
+        <div class="row gy-5">
+
+          {% for m in ministries%}
+
+            <!-- <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+              <div class="post-box">
+                <div class="post-img"><img src="{{ m.ministry_image.url }}" class="img-fluid" alt=""></div>
+                <div class="meta">
+                  <span class="post-date">Tue, December 12</span>
+                  <span class="post-author"> / Julia Parker</span>
+                </div>
+                <h3 class="post-title">{{ m.name }}</h3>
+                <p>{{ m.description }}</p>
+                <a href="/soon/" class="readmore stretched-link"><span>Find Out More</span><i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div> -->
+
+            <div class="col-lg-4 col-md-6">
+              <div class="ministry" data-aos="fade-up" data-aos-delay="100">
+                <img src="{{ m.ministry_image.url }}" alt="" class="img-fluid">
+                <div class="details">
+                  <h3><a href="/soon/">{{ m.name }}</a></h3>
+                  <p>{{ m.description}}</p>
+                  <div class="social">
+                    <a href=""><i class="bi bi-twitter"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          {% endfor %}
+
+          <!-- <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="post-box">
+              <div class="post-img"><img src="{% static 'assets/img/team/children/fewchildren.jpeg' %}" class="img-fluid" alt=""></div>
+              <div class="meta">
+                <span class="post-date">Fri, September 05</span>
+                <span class="post-author"> / Mario Douglas</span>
+              </div>
+              <h3 class="post-title">Children</h3>
+              <p>Voluptatem nesciunt omnis libero autem tempora enim ut ipsam id. Odit quia ab eum assumenda. Quisquam omnis doloribus...</p>
+              <a href="/soon/" class="readmore stretched-link"><span>Find Out More</span><i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div> -->
+
+          <!-- <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="post-box">
+              <div class="post-img"><img src="{% static 'assets/img/team/children/bible.jpeg' %}" class="img-fluid" alt=""></div>
+              <div class="meta">
+                <span class="post-date">Tue, July 27</span>
+                <span class="post-author"> / Lisa Hunter</span>
+              </div>
+              <h3 class="post-title">Marriage</h3>
+              <p>Quia nam eaque omnis explicabo similique eum quaerat similique laboriosam. Quis omnis repellat sed quae consectetur magnam...</p>
+              <a href="/soon/" class="readmore stretched-link"><span>Find Out More</span><i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div> -->
+
+          <!-- <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="post-box">
+              <div class="post-img"><img src="{% static 'assets/img/team/children/marriage.jpeg' %}" class="img-fluid" alt=""></div>
+              <div class="meta">
+                <span class="post-date">Tue, Sep 16</span>
+                <span class="post-author"> / Mario Douglas</span>
+              </div>
+              <h3 class="post-title">Bible Study</h3>
+              <p>Et consequatur eveniet nam voluptas commodi cumque ea est ex. Aut quis omnis sint ipsum earum quia eligendi...</p>
+              <a href="/soon/" class="readmore stretched-link"><span>Find Out More</span><i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div> -->
+
+        </div>
+
+      </div>
+    </section><!-- End weekly Section -->
+
+    <!-- ======= Sermons Section ======= -->
+    <section id="sermons" class="sermons section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Latest Sermons</h2>
+          <p>For the word of God is living and powerful, and sharper than any two-edged sword <br> Hebrews 4:12</p>
+        </div>
+
+        <div class="row g-0" data-aos="fade-up" data-aos-delay="200">
+
+          <div class="col-xl-5 img-bg" style="background-image: url({{ sermon.0.placeholder_image.url }})"></div>
+          <div class="col-xl-7 slides  position-relative">
+
+            <div class="slides-1 swiper">
+              <div class="swiper-wrapper">
+
+                {% for s in sermon %}
+                  <div class="swiper-slide">
+                  <div class="item">
+                    <h3 class="mb-3">{{s.name}}</h3>
+                    <h4 class="mb-3">~ {{s.preacher}}</h4>
+                    <p>Dolorem quia fuga consectetur voluptatem. Earum consequatur nulla maxime necessitatibus cum accusamus. Voluptatem dolorem ut numquam dolorum delectus autem veritatis facilis. Et ea ut repellat ea. Facere est dolores fugiat dolor.</p>
+                  </div>
+                </div><!-- End slide item -->
+                {% endfor %}
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Sermons Section -->
+
+    <!-- ======= Donate Section ======= -->
+    <section id="cta" class="cta">
+      <div class="container">
+
+        <div class="row" data-aos="zoom-in">
+          <div class="col-lg-9 text-center text-lg-start">
+            <h3>Support The Work Of God</h3>
+            <p>You can always be part of this great commission of preaching the gospel and turning many disciples Of Jesus by supporting us financially, click the button on the right to send in your contribution may God bless you.  <br> Luke 6:38</p>
+          </div>
+          <div class="col-lg-3 cta-btn-container text-center">
+            <a class="cta-btn align-middle" href="#">Donate</a>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End seed Section -->
+
+    <!-- ======= News Section ======= -->
+    <section id="why-us" class="sermons">
+      <div class="container-fluid">
+        <div class="section-title">
+          <h2>Church News And Updates</h2>
+          <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
+        </div>
+
+        <div class="row mx-5">
+
+          <div class="col-lg-5 position-relative video-box" style='background-image: url({{headline.display_image.url}});padding-left: 2em;' data-aos="fade-right">
+            <a href="{{ headline.youtube_url }}" class="glightbox play-btn mb-4"></a>
+          </div>
+
+          <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch" data-aos="fade-left">
+            <div class="content">
+              <h3>{{headline.headline}}</h3>
+              <p>
+                {{headline.sub_headline}}
+              </p>
+            </div>
+
+            <div class="accordion-list">
+              <ul>
+                {% for n in news %}
+                  <li data-aos="fade-up" data-aos-delay="100">
+                    <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-{{forloop.counter}}"><span>0{{forloop.counter}}</span> {{n.headline}} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                    <div id="accordion-list-{{forloop.counter}}" class="collapse {% if forloop.first %} show {% endif %}" data-bs-parent=".accordion-list">
+                      <p>
+                        {{n.details}}
+                      </p>
+                    </div>
+                  </li>
+                {% endfor %}
+                <!-- <li data-aos="fade-up" data-aos-delay="100">
+                  <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>01</span> Couples Dinner <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
+                    <p>
+                      Marrieds Ministry has organized an extrordinary dinner for the marrieds and marrieds to be couples, come with your partner and experience a divine gathering married sons and daughters of God
+                    </p>
+                  </div>
+                </li> -->
+
+                <!-- <li data-aos="fade-up" data-aos-delay="200">
+                  <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed"><span>02</span> Tonny's Introduction and Wedding Ceremonies <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
+                    <p>
+                      Brother Tonny to be introduced and to wed his fiancy on....
+                    </p>
+                  </div>
+                </li> -->
+
+                <!-- <li data-aos="fade-up" data-aos-delay="300">
+                  <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>03</span> Sunday School Church Re innovation<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
+                    <p>
+                      Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+                    </p>
+                  </div>
+                </li> -->
+
+              </ul>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End News Section -->
+
+    <!-- ======= Projects Section ======= -->
+    <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Projects</h2>
+          <p>Coming together for a happy and successful christian life</p>
+        </div>
+
+        <div class="row">
+          {% for p in projects %}
+            <div class="col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon-box">
+                <i class="bi bi-card-checklist"></i>
+                <h4><a href="#">{{p.title}}</a></h4>
+                <p>{{p.description}}</p>
+              </div>
+            </div>
+          {% endfor %}
+          <!-- <div class="col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon-box">
+              <i class="bi bi-card-checklist"></i>
+              <h4><a href="#">Lorem Ipsum</a></h4>
+              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon-box">
+              <i class="bi bi-bar-chart"></i>
+              <h4><a href="#">Dolor Sitema</a></h4>
+              <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="300">
+            <div class="icon-box">
+              <i class="bi bi-binoculars"></i>
+              <h4><a href="#">Sed ut perspiciatis</a></h4>
+              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="400">
+            <div class="icon-box">
+              <i class="bi bi-brightness-high"></i>
+              <h4><a href="#">Nemo Enim</a></h4>
+              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="500">
+            <div class="icon-box">
+              <i class="bi bi-calendar4-week"></i>
+              <h4><a href="#">Magni Dolore</a></h4>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="600">
+            <div class="icon-box">
+              <i class="bi bi-briefcase"></i>
+              <h4><a href="#">Eiusmod Tempor</a></h4>
+              <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+            </div>
+          </div> -->
+        </div>
+
+      </div>
+    </section><!-- End Projects Section -->
+
+    <!-- ======= Frequently Asked Questions Section ======= -->
+    <!-- <section id="faq" class="faq section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-list">
+          <ul>
+            <li data-aos="fade-up" data-aos="fade-up" data-aos-delay="100">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-1">Non consectetur a erat nam at lectus urna duis? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
+                <p>
+                  Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="200">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" class="collapsed">Feugiat scelerisque varius morbi enim nunc? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="300">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" class="collapsed">Dolor sit amet consectetur adipiscing elit? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="400">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-4" class="collapsed">Tempus quam pellentesque nec nam aliquam sem et tortor consequat? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-4" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="500">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-5" class="collapsed">Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-5" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque.
+                </p>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    </section> -->
+    <!-- End Frequently Asked Questions Section -->
+
+  </main><!-- End #main -->
+  {% endblock %}
