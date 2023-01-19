@@ -1,9 +1,6 @@
-from email.policy import default
-from pyexpat import model
-from turtle import title
-from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.utils import timezone
+from .formatChecker import ContentTypeRestrictedFileField
 
 
 # Create your models here.
@@ -15,12 +12,12 @@ class FrontText(models.Model):
     is_event = models.BooleanField(default=False)
     active = models.BooleanField(default=False)
     is_activated = models.BooleanField(default=False)
-    back_image = models.ImageField(upload_to="videos/carousel/")
+    back_image = ContentTypeRestrictedFileField(upload_to='videos/carousel', content_types=['png','jpeg','jpg'],max_upload_size=1000000)
 
 
 class BackgroundVideo(models.Model):
     caption = models.CharField(max_length=100)
-    video = models.FileField(upload_to='videos/back')
+    video = ContentTypeRestrictedFileField(upload_to='videos/carousel', content_types=['mp4','mov'],max_upload_size=3000000,blank=True, null=True)
 
     def __str__(self):
         return self.caption
@@ -32,7 +29,7 @@ class Ministry(models.Model):
     story = models.CharField(max_length=500, blank=True)
     email = models.CharField(max_length=200, blank=True)
     number = models.CharField(max_length=200, blank=True)
-    ministry_image = models.ImageField(upload_to='img/ministries')
+    ministry_image = ContentTypeRestrictedFileField(upload_to='img/ministries', content_types=['png','jpeg','jpg'],max_upload_size=1000000)
 
     def __str__(self):
         return self.name
@@ -42,7 +39,7 @@ class Sermon(models.Model):
     name = models.CharField(max_length=200)
     preacher = models.CharField(max_length=200)
     description = models.CharField(max_length=400)
-    placeholder_image = models.ImageField(upload_to='img/sermons')
+    placeholder_image = ContentTypeRestrictedFileField(upload_to='img/sermons', content_types=['png','jpeg','jpg'],max_upload_size=1000000)
     youtube_url = models.URLField(max_length=200, blank=True)
     facebook_url = models.URLField(max_length=200, blank=True)
     twitter_url = models.URLField(max_length=200, blank=True)
@@ -57,7 +54,7 @@ class News(models.Model):
     isheadline = models.BooleanField(default=False)
     headline = models.CharField(max_length=200)
     sub_headline = models.CharField(max_length=200)
-    display_image = models.ImageField(upload_to='img/news', blank=True)
+    display_image = ContentTypeRestrictedFileField(upload_to='img/news', content_types=['png','jpeg','jpg'],max_upload_size=1000000)
     youtube_url = models.CharField(max_length=200, blank=True)
     details = models.CharField(max_length=1000)
     valid_until = models.DateField()
@@ -69,7 +66,7 @@ class News(models.Model):
 class Project(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
-    display_image = models.ImageField(upload_to="img/projects")
+    display_image = ContentTypeRestrictedFileField(upload_to='img/projects', content_types=['png','jpeg','jpg'],max_upload_size=1000000)
 
 
 class MenuItem(models.Model):
@@ -95,13 +92,13 @@ class WSchedule(models.Model):
     end_time = models.DateTimeField()
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
-    event_image = models.ImageField(upload_to="img/events")
+    event_image = ContentTypeRestrictedFileField(upload_to='img/events', content_types=['png','jpeg','jpg'],max_upload_size=500000)
     event_video = models.URLField(max_length=200, blank=True)
     contact_person = models.CharField(max_length=100)
 
 
 class Teams(models.Model):
-    team_image = models.ImageField(upload_to="img/teams", null=True, blank=True)
+    team_image = ContentTypeRestrictedFileField(upload_to='img/teams', content_types=['png','jpeg','jpg'],max_upload_size=1000000, blank=True)
     team_name = models.CharField(max_length=100)
     team_slogan = models.CharField(max_length=100)
 
@@ -117,7 +114,7 @@ class Person(models.Model):
     role = models.CharField(max_length=200, default='member')
     title = models.CharField(max_length=200, default='Brethren')
     profile_image = models.ImageField(upload_to="img/persons")
-    full_image = models.ImageField(upload_to="img/full/persons")
+    full_image = ContentTypeRestrictedFileField(upload_to='img/full/persons', content_types=['png','jpeg','jpg'],max_upload_size=1000000)
     password = models.CharField(max_length=50)
 
     def __str__(self):
@@ -125,7 +122,7 @@ class Person(models.Model):
 
 
 class WelcomeNote(models.Model):
-    full_image = models.ImageField(upload_to="img/welcome")
+    full_image = ContentTypeRestrictedFileField(upload_to='img/welcome', content_types=['png','jpeg','jpg'],max_upload_size=1000000)
     header = models.CharField(max_length=200)
     note = models.CharField(max_length=500)
 

@@ -26,14 +26,13 @@ SECRET_KEY = 'django-insecure-ll5xu-4q=$x$74d-j9#9ug8j1%yc57l46jbn&5-$u8jb4t7@d+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['3.8.208.86','127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'DivineSite.apps.DivineSiteConfig',
-    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -61,7 +60,7 @@ ROOT_URLCONF = 'DivineSite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR,'template'],
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,6 +122,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static/'),)
 
